@@ -4,7 +4,7 @@ import { Outlet } from 'react-router';
 export const PublicLayout = () => {
     return (
         <>
-            <div className='max-w-7xl mx-auto '>
+            <div className='max-w-7xl mx-auto px-20'>
                 <NavBar />
                 <main>
                     <Outlet />

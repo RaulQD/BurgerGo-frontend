@@ -4,6 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-bebas:'Bebas Neue', sans-serif;
+  --font-londrina: 'Londrina Solid', cursive;
   --font-poppins: 'Poppins', sans-serif;
   --font-oleo: 'Oleo Script Swash Caps', cursive;
   --radius-sm: calc(var(--radius) - 4px);
