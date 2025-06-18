@@ -8,11 +8,12 @@ export const userSchema = z.object({
 })
 export type User = z.infer<typeof userSchema>;
 export const CustomerSchema = z.object({
-    "id": z.string(),
-    "name": z.string(),
-    "last_name": z.string(),
-    "address": z.string(),
-    "phone": z.string(),
+  "id": z.string(),
+  "name": z.string(),
+  "last_name": z.string(),
+  "address": z.string().optional(),
+  "dni": z.string(),
+  "phone": z.string(),
 });
 export type Customer = z.infer<typeof CustomerSchema>;
 
@@ -22,17 +23,17 @@ export const RolSchema = z.object({
 });
 export type Rol = z.infer<typeof RolSchema>;
 export const ProfileSchema = z.object({
-    "id": z.string(),
-    "email": z.string(),
-    "username": z.null(),
-    "type": z.string(),
-    "createdAt": z.coerce.date(),
-    "updatedAt": z.coerce.date(),
-    "rol": RolSchema,
-    "customer": CustomerSchema,
+  "id": z.string(),
+  "email": z.string(),
+  "customer": CustomerSchema,
 });
 export type Profile = z.infer<typeof ProfileSchema>;
-export const CustomerProfileSchema = z.object({})
+export const CustomerProfileSchema = z.object({
+  data: ProfileSchema,
+})
+export type CustomerProfile = z.infer<typeof CustomerProfileSchema>;
+
+
 
 export const loginSchema = userSchema.pick({
   email: true,
@@ -42,9 +43,6 @@ export const loginSchema = userSchema.pick({
 
 export type LoginFormData = Pick<User, 'email' | 'password'>;
 export type LoginResponse = {
-  status: number;
   message: string;
-  data: {
-    access_token: string;
-  }
+  access_token: string;
 }

@@ -11,7 +11,7 @@ createRoot(document.getElementById('root')!).render(
         <BrowserRouter>
             <App />
             <Toaster
-                position='bottom-right'
+                position='top-center'
                 duration={2000}
                 icons={{
                     success: <Check className='text-green-500  w-4 h-4' />,
