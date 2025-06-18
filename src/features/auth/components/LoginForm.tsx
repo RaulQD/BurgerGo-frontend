@@ -11,15 +11,13 @@ import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, type LoginFormData } from '../types/auth.types';
-import { loginCustomer } from '../service/authService';
 import { useAppStore } from '@/shared/store/useAppStore';
-import { toast } from 'sonner';
-import { useStore } from '../store/useStore';
+import { useAuthStore } from '../store/useAuthStore';
+import { SpinnerMini } from '@/shared/components/SpinnerMini';
 
 export const LoginForm = () => {
-    const { setToken } = useStore();
-    const { setLoading, loading } = useStore();
-    const getProfile = useStore(state => state.getProfile);
+    const loading = useAuthStore((state) => state.loading);
+    const login = useAuthStore((state) => state.login);
     const onClose = useAppStore((state) => state.onClose);
     const initialValues: LoginFormData = {
         email: '',
@@ -30,31 +28,17 @@ export const LoginForm = () => {
         defaultValues: initialValues,
     });
     const onSubmit = async (data: LoginFormData) => {
-        try {
-            const response = await loginCustomer(data);
-            setToken(response?.data.access_token || '');
-            if (response?.status === 200) {
-                setLoading(false);
-                toast.success(response.message);
-                if (onClose) {
-                    onClose();
-                }
-            } else {
-                toast.error(response?.message);
-            }
-            await getProfile();
-        } catch (error) {
-            const errorMessage =
-                error instanceof Error ? error.message : 'Error desconocido';
-            toast.error(errorMessage);
-        }
+        await login(data, onClose);
     };
 
     return (
         <div>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
-                    <div className='flex flex-col gap-4'>
+                    <div
+                        className={` ${
+                            loading ? 'pointer-events-none opacity-60' : ' '
+                        } flex flex-col gap-4 `}>
                         <FormField
                             control={form.control}
                             name='email'
@@ -63,7 +47,10 @@ export const LoginForm = () => {
                                     <FormLabel>Correo electronico</FormLabel>
                                     <FormControl>
                                         <Input
+                                            type='email'
                                             placeholder='example@example.com'
+                                            autoComplete='email'
+                                            disabled={loading}
                                             {...field}
                                         />
                                     </FormControl>
@@ -81,6 +68,9 @@ export const LoginForm = () => {
                                         <Input
                                             type='password'
                                             placeholder='*************'
+                                            autoComplete='current-password'
+                                            disabled={loading}
+                                            className={``}
                                             {...field}
                                         />
                                     </FormControl>
@@ -93,7 +83,14 @@ export const LoginForm = () => {
                         type='submit'
                         className='mt-4 bg-[#FF6B35] hover:bg-[#FF6B35]/90 text-white cursor-pointer'
                         disabled={loading}>
-                        {loading ? 'Cargando...' : 'Iniciar sesión'}
+                        {loading ? (
+                            <div className='flex items-center gap-2'>
+                                <SpinnerMini />
+                                <span className='text-sm'>Cargando...</span>
+                            </div>
+                        ) : (
+                            'Iniciar sesión'
+                        )}
                     </Button>
                 </form>
             </Form>

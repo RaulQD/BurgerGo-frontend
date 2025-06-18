@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { Slider } from '@/shared/components/Slider';
+import Promos from '../../../assets/promos.png';
 export interface Classic {
     id: number;
     name: string;
@@ -78,13 +79,11 @@ export const Classics = () => {
 
     return (
         <>
-            <div className='bg-[#FF6B35] py-10 px-4 rounded-lg shadow-lg mb-16 inline-block w-full'>
-                <h2 className='text-6xl text-white font-londrina text-center'>
-                    Descubre nuestras <span className='uppercase'>hamburguesas</span>
-                </h2>
+            <div className='flex justify-center mb-20'>
+                <img src={Promos} alt='Promos' />
             </div>
             <div className='text-center mb-12'>
-                <h2 className='text-4xl text-[#2A2A2A] font-londrina'>
+                <h2 className='text-2xl lg:text-4xl text-[#2A2A2A] font-londrina'>
                     Nuestras{' '}
                     <span className='text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-[#FF6B35]'>
                         clasicas
@@ -92,10 +91,10 @@ export const Classics = () => {
                 </h2>
             </div>
             <div className='relative'>
-                <button className='custom-prev absolute top-1/2 -left-5 transform -translate-y-1/2 z-10 bg-[#FF6B35] text-white py-5 px-1 rounded-md shadow-lg cursor-pointer'>
+                <button className='custom-prev absolute top-1/2 -left-3 lg:-left-5 transform -translate-y-1/2 z-10 bg-[#FF6B35] text-white py-5 px-1 rounded-md shadow-lg cursor-pointer'>
                     <ChevronLeft size={30} />
                 </button>
-                <button className='custom-next absolute top-1/2 -right-5 transform -translate-y-1/2 z-10 bg-[#FF6B35] text-white py-5 px-1 rounded-md shadow-lg cursor-pointer'>
+                <button className='custom-next absolute top-1/2 -right-3 lg:-right-5 transform -translate-y-1/2 z-10 bg-[#FF6B35] text-white py-5 px-1 rounded-md shadow-lg cursor-pointer'>
                     <ChevronRight size={30} />
                 </button>
                 <Slider classics={classics} />

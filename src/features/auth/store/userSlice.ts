@@ -1,21 +1,21 @@
-import type { StateCreator } from "zustand";
-import type { CustomerResponse } from "../types/auth.types";
-import { getProfile } from "../service/authService";
+// import type { StateCreator } from "zustand";
+// import type { CustomerProfile } from "../types/auth.types";
+// import { getProfile } from "../service/authService";
 
-type UserState = {
-  profile: CustomerResponse | null;
-}
-type UserActions = {
-  getProfile: () => Promise<void>
-}
+// type UserState = {
+//   profile: CustomerProfile | null;
+// }
+// type UserActions = {
+//   getProfile: () => Promise<void>
+// }
 
-export type UserSliceType = UserState & UserActions;
+// export type UserSliceType = UserState & UserActions;
 
 
-export const createUserSlice: StateCreator<UserSliceType> = ((set) => ({
-  profile: null,
-  getProfile: async () => {
-    const data = await getProfile();
-    set({ profile: data });
-  }
-}))
+// export const createUserSlice: StateCreator<UserSliceType> = ((set) => ({
+//   profile: null,
+//   getProfile: async () => {
+//     const data = await getProfile();
+//     set({ profile: data });
+//   }
+// }))
